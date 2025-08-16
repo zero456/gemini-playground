@@ -73,15 +73,41 @@ if (savedSystemInstruction) {
     CONFIG.SYSTEM_INSTRUCTION.TEXT = savedSystemInstruction;
 }
 
+// DOM Elements
+const themeSwitcher = document.getElementById('theme-switcher');
+
+// Theme switcher logic
+function setNightMode(isNight) {
+    document.body.classList.toggle('dark-theme', isNight);
+    document.body.classList.toggle('light-theme', !isNight);
+    themeSwitcher.textContent = isNight ? 'dark_mode' : 'light_mode';
+    localStorage.setItem('theme', isNight ? 'dark' : 'light');
+}
+
+themeSwitcher.addEventListener('click', () => {
+    const isNight = !document.body.classList.contains('dark-theme');
+    setNightMode(isNight);
+});
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    setNightMode(savedTheme === 'dark');
+} else {
+    // Or use system preference
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setNightMode(prefersDark);
+}
+
+
 // Handle configuration panel toggle
 configToggle.addEventListener('click', () => {
-    configContainer.classList.toggle('active');
-    configToggle.classList.toggle('active');
+    const isActive = configContainer.style.display === 'block';
+    configContainer.style.display = isActive ? 'none' : 'block';
 });
 
 applyConfigButton.addEventListener('click', () => {
-    configContainer.classList.toggle('active');
-    configToggle.classList.toggle('active');
+    configContainer.style.display = 'none';
 });
 
 // State variables
@@ -108,29 +134,21 @@ function logMessage(message, type = 'system') {
     const logEntry = document.createElement('div');
     logEntry.classList.add('log-entry', type);
 
-    const timestamp = document.createElement('span');
-    timestamp.classList.add('timestamp');
-    timestamp.textContent = new Date().toLocaleTimeString();
-    logEntry.appendChild(timestamp);
+    if (type === 'user' || type === 'ai') {
+        const messageBubble = document.createElement('div');
+        messageBubble.classList.add('message-bubble');
+        messageBubble.textContent = message;
+        logEntry.appendChild(messageBubble);
+    } else {
+        const timestamp = document.createElement('span');
+        timestamp.classList.add('timestamp');
+        timestamp.textContent = new Date().toLocaleTimeString();
+        logEntry.appendChild(timestamp);
 
-    const emoji = document.createElement('span');
-    emoji.classList.add('emoji');
-    switch (type) {
-        case 'system':
-            emoji.textContent = '⚙️';
-            break;
-        case 'user':
-            emoji.textContent = '🫵';
-            break;
-        case 'ai':
-            emoji.textContent = '🤖';
-            break;
+        const messageText = document.createElement('span');
+        messageText.textContent = message;
+        logEntry.appendChild(messageText);
     }
-    logEntry.appendChild(emoji);
-
-    const messageText = document.createElement('span');
-    messageText.textContent = message;
-    logEntry.appendChild(messageText);
 
     logsContainer.appendChild(logEntry);
     logsContainer.scrollTop = logsContainer.scrollHeight;
