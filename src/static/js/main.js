@@ -7,7 +7,7 @@ import { VideoManager } from './video/video-manager.js';
 import { ScreenRecorder } from './video/screen-recorder.js';
 import { languages } from './language-selector.js';
 
-const marked = new marked.Marked(
+const markedParser = new marked.Marked(
     markedKatex({
         throwOnError: false
     })
@@ -137,7 +137,7 @@ function logMessage(message, type = 'system') {
 
     const messageText = document.createElement('span');
     if (type === 'ai') {
-        messageText.innerHTML = marked.parse(message);
+        messageText.innerHTML = markedParser.parse(message);
     } else {
         messageText.textContent = message;
     }
