@@ -101,6 +101,7 @@ let videoManager = null;
 let isScreenSharing = false;
 let screenRecorder = null;
 let isUsingTool = false;
+let aiResponseAccumulator = '';
 
 // Multimodal Client
 const client = new MultimodalLiveClient();
@@ -373,11 +374,11 @@ function handleSendMessage() {
 
 // Event Listeners
 client.on('open', () => {
-    logMessage('WebSocket connection opened', 'system');
+    // logMessage('WebSocket connection opened', 'system');
 });
 
 client.on('log', (log) => {
-    logMessage(`${log.type}: ${JSON.stringify(log.message)}`, 'system');
+    // logMessage(`${log.type}: ${JSON.stringify(log.message)}`, 'system');
 });
 
 client.on('close', (event) => {
@@ -406,7 +407,7 @@ client.on('content', (data) => {
 
         const text = data.modelTurn.parts.map(part => part.text).join('');
         if (text) {
-            logMessage(text, 'ai');
+            aiResponseAccumulator += text;
         }
     }
 });
@@ -419,12 +420,16 @@ client.on('interrupted', () => {
 });
 
 client.on('setupcomplete', () => {
-    logMessage('Setup complete', 'system');
+    // logMessage('Setup complete', 'system');
 });
 
 client.on('turncomplete', () => {
     isUsingTool = false;
-    logMessage('Turn complete', 'system');
+    if (aiResponseAccumulator) {
+        logMessage(aiResponseAccumulator, 'ai');
+        aiResponseAccumulator = '';
+    }
+    // logMessage('Turn complete', 'system');
 });
 
 client.on('error', (error) => {
