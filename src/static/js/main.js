@@ -7,6 +7,12 @@ import { VideoManager } from './video/video-manager.js';
 import { ScreenRecorder } from './video/screen-recorder.js';
 import { languages } from './language-selector.js';
 
+const marked = new marked.Marked(
+    markedKatex({
+        throwOnError: false
+    })
+);
+
 /**
  * @fileoverview Main entry point for the application.
  * Initializes and manages the UI, audio, video, and WebSocket interactions.
@@ -129,7 +135,11 @@ function logMessage(message, type = 'system') {
     logEntry.appendChild(emoji);
 
     const messageText = document.createElement('span');
-    messageText.textContent = message;
+    if (type === 'ai') {
+        messageText.innerHTML = marked.parse(message);
+    } else {
+        messageText.textContent = message;
+    }
     logEntry.appendChild(messageText);
 
     logsContainer.appendChild(logEntry);

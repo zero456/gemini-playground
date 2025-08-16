@@ -1,0 +1,32 @@
+
+> gemini-playground@0.0.0 dev
+> wrangler dev
+
+
+ ⛅️ wrangler 3.99.0 (update available 4.30.0)
+---------------------------------------------
+
+⎔ Starting local server...
+[wrangler-UserWorker:wrn] The latest compatibility date supported by the installed Cloudflare Workers Runtime is "2024-12-18",
+but you've requested "2024-12-30". Falling back to "2024-12-18"...
+Features enabled by your requested compatibility date may not be available.
+Upgrade to `wrangler@4.30.0` to remove this warning.
+[wrangler:inf] Ready on http://localhost:46019
+[wrangler:inf] GET / 200 OK (20ms)
+[wrangler:inf] GET /css/style.css 200 OK (13ms)
+[wrangler:inf] GET /js/main.js 200 OK (20ms)
+[wrangler:inf] GET /js/core/websocket-client.js 200 OK (18ms)
+[wrangler:inf] GET /js/audio/audio-streamer.js 200 OK (31ms)
+[wrangler:inf] GET /js/config/config.js 200 OK (43ms)
+[wrangler:inf] GET /js/audio/audio-recorder.js 200 OK (45ms)
+[wrangler:inf] GET /js/utils/logger.js 200 OK (75ms)
+[wrangler:inf] GET /js/video/video-manager.js 200 OK (76ms)
+[wrangler:inf] GET /js/video/screen-recorder.js 200 OK (61ms)
+[wrangler:inf] GET /js/language-selector.js 200 OK (60ms)
+[wrangler:inf] GET /js/utils/utils.js 200 OK (29ms)
+[wrangler:inf] GET /js/tools/tool-manager.js 200 OK (21ms)
+[wrangler:inf] GET /js/utils/error-boundary.js 200 OK (29ms)
+[wrangler:inf] GET /js/core/worklet-registry.js 200 OK (21ms)
+[wrangler:inf] GET /js/video/video-recorder.js 200 OK (19ms)
+[wrangler:inf] GET /js/tools/google-search.js 200 OK (8ms)
+[wrangler:inf] GET /js/tools/weather-tool.js 200 OK (14ms)
