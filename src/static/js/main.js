@@ -6,8 +6,10 @@ import { Logger } from './utils/logger.js';
 import { VideoManager } from './video/video-manager.js';
 import { ScreenRecorder } from './video/screen-recorder.js';
 import { languages } from './language-selector.js';
+import { Marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
+import markedKatex from 'https://cdn.jsdelivr.net/npm/marked-katex-extension@1.2.0/dist/index.mjs';
 
-const markedParser = new marked.Marked(
+const markedParser = new Marked(
     markedKatex({
         throwOnError: false
     })
