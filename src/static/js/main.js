@@ -134,21 +134,29 @@ function logMessage(message, type = 'system') {
     const logEntry = document.createElement('div');
     logEntry.classList.add('log-entry', type);
 
-    if (type === 'user' || type === 'ai') {
-        const messageBubble = document.createElement('div');
-        messageBubble.classList.add('message-bubble');
-        messageBubble.textContent = message;
-        logEntry.appendChild(messageBubble);
-    } else {
-        const timestamp = document.createElement('span');
-        timestamp.classList.add('timestamp');
-        timestamp.textContent = new Date().toLocaleTimeString();
-        logEntry.appendChild(timestamp);
+    const timestamp = document.createElement('span');
+    timestamp.classList.add('timestamp');
+    timestamp.textContent = new Date().toLocaleTimeString();
+    logEntry.appendChild(timestamp);
 
-        const messageText = document.createElement('span');
-        messageText.textContent = message;
-        logEntry.appendChild(messageText);
+    const emoji = document.createElement('span');
+    emoji.classList.add('emoji');
+    switch (type) {
+        case 'system':
+            emoji.textContent = '⚙️';
+            break;
+        case 'user':
+            emoji.textContent = '🫵';
+            break;
+        case 'ai':
+            emoji.textContent = '🤖';
+            break;
     }
+    logEntry.appendChild(emoji);
+
+    const messageText = document.createElement('span');
+    messageText.textContent = message;
+    logEntry.appendChild(messageText);
 
     logsContainer.appendChild(logEntry);
     logsContainer.scrollTop = logsContainer.scrollHeight;

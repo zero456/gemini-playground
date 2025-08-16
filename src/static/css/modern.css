@@ -4,12 +4,14 @@
     --primary-color-light: #007aff;
     --container-bg-light: #f9f9f9;
     --border-color-light: #e5e5e5;
+    --system-message-bg-light: #e5e5ea;
 
     --background-color-dark: #1c1c1e;
     --text-color-dark: #ffffff;
     --primary-color-dark: #0a84ff;
     --container-bg-dark: #2c2c2e;
     --border-color-dark: #3a3a3c;
+    --system-message-bg-dark: #3a3a3c;
 }
 
 body {
@@ -69,40 +71,61 @@ body.dark-theme {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-}
-
-.log-entry .timestamp {
-    font-size: 0.8em;
-    opacity: 0.6;
-}
-
-.log-entry .message-bubble {
-    padding: 10px 15px;
-    border-radius: 18px;
-    max-width: 80%;
+    padding: 5px;
 }
 
 .log-entry.user {
     justify-content: flex-end;
 }
 
-.light-theme .log-entry.user .message-bubble {
+.log-entry .emoji {
+    font-size: 1.5em;
+}
+
+.log-entry .message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.log-entry .timestamp {
+    font-size: 0.7em;
+    opacity: 0.6;
+    margin-bottom: 5px;
+}
+
+.log-entry.user .message-content {
+    align-items: flex-end;
+}
+
+.log-entry.ai .message-content, .log-entry.system .message-content {
+    align-items: flex-start;
+}
+
+.log-entry.user span:not(.timestamp):not(.emoji),
+.log-entry.ai span:not(.timestamp):not(.emoji) {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 100%;
+}
+
+.light-theme .log-entry.user span:not(.timestamp):not(.emoji) {
     background-color: var(--primary-color-light);
     color: white;
 }
 
-.dark-theme .log-entry.user .message-bubble {
+.dark-theme .log-entry.user span:not(.timestamp):not(.emoji) {
     background-color: var(--primary-color-dark);
     color: white;
 }
 
-.light-theme .log-entry.ai .message-bubble {
-    background-color: #e5e5ea;
+.light-theme .log-entry.ai span:not(.timestamp):not(.emoji) {
+    background-color: var(--system-message-bg-light);
 }
 
-.dark-theme .log-entry.ai .message-bubble {
-    background-color: #3a3a3c;
+.dark-theme .log-entry.ai span:not(.timestamp):not(.emoji) {
+    background-color: var(--system-message-bg-dark);
 }
+
 
 .input-area {
     display: flex;
