@@ -73,41 +73,15 @@ if (savedSystemInstruction) {
     CONFIG.SYSTEM_INSTRUCTION.TEXT = savedSystemInstruction;
 }
 
-// DOM Elements
-const themeSwitcher = document.getElementById('theme-switcher');
-
-// Theme switcher logic
-function setNightMode(isNight) {
-    document.body.classList.toggle('dark-theme', isNight);
-    document.body.classList.toggle('light-theme', !isNight);
-    themeSwitcher.textContent = isNight ? 'dark_mode' : 'light_mode';
-    localStorage.setItem('theme', isNight ? 'dark' : 'light');
-}
-
-themeSwitcher.addEventListener('click', () => {
-    const isNight = !document.body.classList.contains('dark-theme');
-    setNightMode(isNight);
-});
-
-// Load saved theme
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    setNightMode(savedTheme === 'dark');
-} else {
-    // Or use system preference
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setNightMode(prefersDark);
-}
-
-
 // Handle configuration panel toggle
 configToggle.addEventListener('click', () => {
-    const isActive = configContainer.style.display === 'block';
-    configContainer.style.display = isActive ? 'none' : 'block';
+    configContainer.classList.toggle('active');
+    configToggle.classList.toggle('active');
 });
 
 applyConfigButton.addEventListener('click', () => {
-    configContainer.style.display = 'none';
+    configContainer.classList.toggle('active');
+    configToggle.classList.toggle('active');
 });
 
 // State variables
@@ -597,3 +571,25 @@ function stopScreenSharing() {
 
 screenButton.addEventListener('click', handleScreenShare);
 screenButton.disabled = true;
+
+const themeSwitcher = document.getElementById('theme-switcher');
+
+function setNightMode(isNight) {
+    document.body.classList.toggle('dark-theme', isNight);
+    document.body.classList.toggle('light-theme', !isNight);
+    themeSwitcher.textContent = isNight ? 'dark_mode' : 'light_mode';
+    localStorage.setItem('theme', isNight ? 'dark' : 'light');
+}
+
+themeSwitcher.addEventListener('click', () => {
+    const isNight = !document.body.classList.contains('dark-theme');
+    setNightMode(isNight);
+});
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    setNightMode(savedTheme === 'dark');
+} else {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setNightMode(prefersDark);
+}

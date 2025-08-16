@@ -1,17 +1,19 @@
 :root {
-    --background-color-light: #ffffff;
-    --text-color-light: #000000;
-    --primary-color-light: #007aff;
-    --container-bg-light: #f9f9f9;
-    --border-color-light: #e5e5e5;
-    --system-message-bg-light: #e5e5ea;
+    --background-color-light: #f0f2f5;
+    --text-color-light: #050505;
+    --primary-color-light: #0084ff;
+    --container-bg-light: #ffffff;
+    --border-color-light: #ced0d4;
+    --system-message-bg-light: #e4e6eb;
+    --hover-bg-light: #f2f2f2;
 
-    --background-color-dark: #1c1c1e;
-    --text-color-dark: #ffffff;
-    --primary-color-dark: #0a84ff;
-    --container-bg-dark: #2c2c2e;
-    --border-color-dark: #3a3a3c;
-    --system-message-bg-dark: #3a3a3c;
+    --background-color-dark: #18191a;
+    --text-color-dark: #e4e6eb;
+    --primary-color-dark: #2374e1;
+    --container-bg-dark: #242526;
+    --border-color-dark: #3a3b3c;
+    --system-message-bg-dark: #3a3b3c;
+    --hover-bg-dark: #3a3b3c;
 }
 
 body {
@@ -40,197 +42,176 @@ body.dark-theme {
     max-width: 800px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
-.card {
-    border-radius: 20px;
-    padding: 20px;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.light-theme .card {
+.settings {
+    display: flex;
+    gap: 10px;
+    align-items: center;
     background-color: var(--container-bg-light);
+    padding: 10px;
+    border-radius: 8px;
     border: 1px solid var(--border-color-light);
 }
 
-.dark-theme .card {
+.dark-theme .settings {
     background-color: var(--container-bg-dark);
-    border: 1px solid var(--border-color-dark);
+    border-color: var(--border-color-dark);
 }
 
-#logs-container {
-    height: 400px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.log-entry {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 5px;
-}
-
-.log-entry.user {
-    justify-content: flex-end;
-}
-
-.log-entry .emoji {
-    font-size: 1.5em;
-}
-
-.log-entry .message-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.log-entry .timestamp {
-    font-size: 0.7em;
-    opacity: 0.6;
-    margin-bottom: 5px;
-}
-
-.log-entry.user .message-content {
-    align-items: flex-end;
-}
-
-.log-entry.ai .message-content, .log-entry.system .message-content {
-    align-items: flex-start;
-}
-
-.log-entry.user span:not(.timestamp):not(.emoji),
-.log-entry.ai span:not(.timestamp):not(.emoji) {
-    padding: 10px 15px;
-    border-radius: 18px;
-    max-width: 100%;
-}
-
-.light-theme .log-entry.user span:not(.timestamp):not(.emoji) {
-    background-color: var(--primary-color-light);
-    color: white;
-}
-
-.dark-theme .log-entry.user span:not(.timestamp):not(.emoji) {
-    background-color: var(--primary-color-dark);
-    color: white;
-}
-
-.light-theme .log-entry.ai span:not(.timestamp):not(.emoji) {
-    background-color: var(--system-message-bg-light);
-}
-
-.dark-theme .log-entry.ai span:not(.timestamp):not(.emoji) {
-    background-color: var(--system-message-bg-dark);
-}
-
-
-.input-area {
-    display: flex;
-    gap: 10px;
-}
-
-#message-input {
+#api-key {
     flex-grow: 1;
-    padding: 10px 15px;
-    border-radius: 18px;
-    border: 1px solid;
-    font-size: 16px;
 }
 
-.light-theme #message-input {
-    border-color: var(--border-color-light);
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
+input, select, button, textarea {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color-light);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.dark-theme #message-input {
+.dark-theme input, .dark-theme select, .dark-theme button, .dark-theme textarea {
     border-color: var(--border-color-dark);
     background-color: var(--container-bg-dark);
     color: var(--text-color-dark);
 }
 
-.icon-button {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+button {
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.light-theme .icon-button {
-    background-color: #e5e5ea;
-    color: #000000;
+button.material-symbols-outlined {
+    background: none;
+    border: none;
+    padding: 8px;
 }
 
-.dark-theme .icon-button {
-    background-color: #3a3a3c;
-    color: #ffffff;
+button:hover {
+    background-color: var(--hover-bg-light);
+}
+
+.dark-theme button:hover {
+    background-color: var(--hover-bg-dark);
+}
+
+#config-container {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color-light);
+    background-color: var(--container-bg-light);
+}
+
+#config-container.active {
+    display: block !important;
+}
+
+.dark-theme #config-container {
+    border-color: var(--border-color-dark);
+    background-color: var(--container-bg-dark);
+}
+
+.config-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.setting-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#logs-container {
+    height: 50vh;
+    overflow-y: auto;
+    padding: 16px;
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px;
+    background-color: var(--container-bg-light);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dark-theme #logs-container {
+    border-color: var(--border-color-dark);
+    background-color: var(--container-bg-dark);
+}
+
+.log-entry {
+    display: flex;
+    gap: 10px;
+    max-width: 80%;
+}
+
+.log-entry .emoji {
+    font-size: 1.5rem;
+}
+
+.log-entry span:not(.emoji):not(.timestamp) {
+    background-color: var(--system-message-bg-light);
+    padding: 10px 15px;
+    border-radius: 18px;
+}
+
+.dark-theme .log-entry span:not(.emoji):not(.timestamp) {
+    background-color: var(--system-message-bg-dark);
+}
+
+.log-entry.user {
+    align-self: flex-end;
+}
+
+.log-entry.user span:not(.emoji):not(.timestamp) {
+    background-color: var(--primary-color-light);
+    color: white;
+}
+
+.dark-theme .log-entry.user span:not(.emoji):not(.timestamp) {
+    background-color: var(--primary-color-dark);
+}
+
+.log-entry.system {
+    align-self: center;
+    font-size: 0.9rem;
+    color: #65676b;
+}
+
+.dark-theme .log-entry.system {
+    color: #b0b3b8;
+}
+
+#message-input {
+    flex-grow: 1;
+}
+
+#send-button {
+    background-color: var(--primary-color-light);
+    color: white;
+    border: none;
+}
+
+.dark-theme #send-button {
+    background-color: var(--primary-color-dark);
+}
+
+#connect-button {
+    background-color: #42b72a;
+    color: white;
+    border: none;
+}
+
+#connect-button.connected {
+    background-color: #fa383e;
 }
 
 .media-controls {
     display: flex;
     gap: 10px;
     justify-content: center;
-}
-
-.settings-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.setting-container {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-}
-
-select, input[type="password"], input[type="number"], textarea {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid;
-    font-size: 14px;
-}
-
-.light-theme select, .light-theme input[type="password"], .light-theme input[type="number"], .light-theme textarea {
-    border-color: var(--border-color-light);
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
-}
-
-.dark-theme select, .dark-theme input[type="password"], .dark-theme input[type="number"], .dark-theme textarea {
-    border-color: var(--border-color-dark);
-    background-color: var(--container-bg-dark);
-    color: var(--text-color-dark);
-}
-
-#connect-button, #apply-config {
-    padding: 12px 20px;
-    border-radius: 18px;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.light-theme #connect-button, .light-theme #apply-config {
-    background-color: var(--primary-color-light);
-    color: white;
-}
-
-.dark-theme #connect-button, .dark-theme #apply-config {
-    background-color: var(--primary-color-dark);
-    color: white;
-}
-
-#connect-button.connected {
-    background-color: #ff453a;
 }
