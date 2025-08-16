@@ -7,11 +7,9 @@ import { VideoManager } from './video/video-manager.js';
 import { ScreenRecorder } from './video/screen-recorder.js';
 import { languages } from './language-selector.js';
 
-const markedParser = new marked.Marked(
-    markedKatex({
-        throwOnError: false
-    })
-);
+marked.use(markedKatex({
+    throwOnError: false
+}));
 
 /**
  * @fileoverview Main entry point for the application.
@@ -137,7 +135,7 @@ function logMessage(message, type = 'system') {
 
     const messageText = document.createElement('span');
     if (type === 'ai') {
-        messageText.innerHTML = markedParser.parse(message);
+        messageText.innerHTML = marked.parse(message);
     } else {
         messageText.textContent = message;
     }
