@@ -32,12 +32,11 @@ const apiKeyInput = document.getElementById('api-key');
 const voiceSelect = document.getElementById('voice-select');
 const languageSelect = document.getElementById('language-select');
 const fpsInput = document.getElementById('fps-input');
-const configToggle = document.getElementById('config-toggle');
-const configContainer = document.getElementById('config-container');
 const systemInstructionInput = document.getElementById('system-instruction');
 systemInstructionInput.value = CONFIG.SYSTEM_INSTRUCTION.TEXT;
-const applyConfigButton = document.getElementById('apply-config');
 const responseTypeSelect = document.getElementById('response-type-select');
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebar-toggle');
 
 // Load saved values from localStorage
 const savedApiKey = localStorage.getItem('gemini_api_key');
@@ -73,15 +72,9 @@ if (savedSystemInstruction) {
     CONFIG.SYSTEM_INSTRUCTION.TEXT = savedSystemInstruction;
 }
 
-// Handle configuration panel toggle
-configToggle.addEventListener('click', () => {
-    configContainer.classList.toggle('active');
-    configToggle.classList.toggle('active');
-});
-
-applyConfigButton.addEventListener('click', () => {
-    configContainer.classList.toggle('active');
-    configToggle.classList.toggle('active');
+// Handle sidebar toggle
+sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
 });
 
 // State variables
@@ -268,6 +261,13 @@ async function connectToWebsocket() {
     localStorage.setItem('gemini_language', languageSelect.value);
     localStorage.setItem('system_instruction', systemInstructionInput.value);
 
+    // 添加调试信息
+    console.log('API Key:', apiKeyInput.value);
+    console.log('Voice:', voiceSelect.value);
+    console.log('Language:', languageSelect.value);
+    console.log('Response Type:', responseTypeSelect.value);
+    console.log('System Instruction:', systemInstructionInput.value);
+
     const config = {
         model: CONFIG.API.MODEL_NAME,
         generationConfig: {
@@ -288,6 +288,9 @@ async function connectToWebsocket() {
             }],
         }
     };  
+
+    // 添加调试信息
+    console.log('Configuration:', config);
 
     try {
         await client.connect(config,apiKeyInput.value);
